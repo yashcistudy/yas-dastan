@@ -1,0 +1,75 @@
+.story { background: var(--paper); }
+
+.story__head { max-width: 90ch; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+
+.story__body {
+  display: grid;
+  grid-template-columns: 1.55fr 0.45fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.story__text p { max-width: 78ch; }
+
+.story__skills {
+  list-style: none;
+  margin: 1.6rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.story__skills li {
+  font-family: var(--font-bold);
+  font-size: 0.75rem;
+  padding: 0.2rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--cream);
+}
+
+.story__portrait {
+  margin: 0;
+  border: 1px solid var(--line);
+  padding: 8px;
+  background: var(--cream);
+  transform: rotate(-1.6deg);
+}
+
+.story__portrait img { width: 100%; display: block; }
+
+.story__beliefs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.belief {
+  background: var(--sand);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.3rem 1.2rem;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease),
+    opacity 0.7s var(--ease);
+}
+
+.belief:hover {
+  transform: translateY(-4px);
+  box-shadow: 4px 6px 0 rgba(150, 29, 9, 0.12);
+}
+
+.belief h3 { font-size: var(--step-1); margin-bottom: 0.5rem; color: var(--brick); }
+.belief p { color: var(--ink-soft); }
+
+.belief__note {
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+  font-family: var(--font-bold);
+}
+
+@media (max-width: 860px) {
+  .story__body { grid-template-columns: 1fr; }
+  .story__portrait { max-width: 320px; }
+}

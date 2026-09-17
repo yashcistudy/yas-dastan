@@ -1,0 +1,144 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: clamp(3.5rem, 8vw, 6rem) var(--page-x);
+  overflow: hidden;
+}
+
+.hero__inner {
+  position: relative;
+  direction: rtl;
+  z-index: 4;
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  pointer-events: none;
+}
+
+.hero__copy > * { pointer-events: auto; }
+
+/* The desk illustration sits under the cards, so it must never eat a click. */
+.hero__illustration,
+.hero__illustration img { pointer-events: none; }
+
+.hero__hello {
+  font-family: var(--font-display);
+  font-size: var(--step-4);
+  line-height: 1.05;
+  margin-bottom: 0.2rem;
+}
+
+.hero__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 1.2rem + 2.4vw, 3.1rem);
+  margin-bottom: 0.3rem;
+}
+
+.hero__role {
+  font-family: var(--font-display);
+  color: var(--olive);
+  font-size: var(--step-1);
+  margin-bottom: 1.6rem;
+}
+
+.hero__welcome {
+  font-size: clamp(1.05rem, 0.9rem + 0.8vw, 1.6rem);
+  max-width: 40ch;
+  margin-bottom: 1.8rem;
+}
+
+.hero__cta {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.4rem;
+}
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  font-family: var(--font-bold);
+  font-size: var(--step-sm);
+  padding: 0.62rem 1.5rem;
+  border-radius: 3px;
+  transition: transform 0.25s var(--ease), background 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+.btn:hover { transform: translateY(-2px); }
+
+.btn--solid {
+  background: var(--brick);
+  color: var(--cream);
+  border: 1.5px solid var(--brick);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--brick);
+  border: 1.5px solid rgba(150, 29, 9, 0.45);
+}
+
+.btn--outline:hover { background: rgba(150, 29, 9, 0.08); }
+
+.hero__note {
+  max-width: 36ch;
+  font-size: var(--step-sm);
+  color: var(--ink-soft);
+  border-inline-start: 2px solid var(--peach);
+  padding-inline-start: 0.8rem;
+  transition: color 0.4s var(--ease);
+}
+
+.hero__note.is-done { color: var(--brick); }
+
+.hero.is-sorted .hero__illustration img { opacity: 0.4; }
+
+.hero__illustration img {
+  transition: opacity 0.8s var(--ease);
+  width: 100%;
+  max-width: 430px;
+  height: auto;
+  display: block;
+  margin-inline: auto;
+  animation: hero-float 9s ease-in-out infinite;
+}
+
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.hero__scroll {
+  position: absolute;
+  bottom: 4.2rem;
+  inset-inline-start: var(--page-x);
+  z-index: 5;
+  font-family: var(--font-bold);
+  font-size: var(--step-sm);
+  color: var(--brick);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.hero__scroll span { animation: nudge 1.9s ease-in-out infinite; }
+
+@keyframes nudge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+@media (max-width: 900px) {
+  .hero { min-height: auto; padding-top: 12rem; padding-bottom: 10.5rem; }
+  .hero__inner { grid-template-columns: 1fr; }
+  .hero__illustration { order: -1; }
+  .hero__illustration img { max-width: 300px; }
+  .hero__scroll { bottom: 8.6rem; }
+}

@@ -1,0 +1,44 @@
+.brand-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.brand-frame__corner {
+  position: absolute;
+  width: min(62%, 780px);
+  height: min(58%, 620px);
+  border: 3px solid var(--brick);
+}
+
+.brand-frame__corner--tr {
+  top: 26px;
+  inset-inline-start: 26px;
+  border-bottom: 0;
+  border-inline-end: 0;
+}
+
+.brand-frame__corner--bl {
+  bottom: 26px;
+  inset-inline-end: 26px;
+  border-top: 0;
+  border-inline-start: 0;
+}
+
+.brand-frame__paper {
+  position: absolute;
+  top: -110px;
+  inset-inline-end: -110px;
+  width: 230px;
+  height: 230px;
+  background: var(--sky);
+  transform: rotate(45deg);
+  opacity: 0.55;
+  z-index: 0;
+}
+
+@media (max-width: 720px) {
+  .brand-frame__corner { width: 72%; height: 42%; }
+  .brand-frame__paper { width: 150px; height: 150px; top: -85px; inset-inline-end: -85px; }
+}

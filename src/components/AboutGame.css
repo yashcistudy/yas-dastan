@@ -1,0 +1,76 @@
+.askme {
+  margin-top: 2.4rem;
+  padding: clamp(1.1rem, 3vw, 2rem);
+  border: 1.5px solid rgba(43, 29, 21, 0.18);
+  border-radius: var(--radius);
+  background: rgba(255, 236, 198, 0.4);
+}
+
+.askme__head h3 {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  margin-top: 0.3rem;
+}
+
+.askme__prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.1rem 0 1.2rem;
+  list-style: none;
+}
+
+.askme__chip {
+  font-family: var(--font-bold);
+  font-size: var(--step-sm);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1.5px dashed rgba(150, 29, 9, 0.5);
+  background: transparent;
+  color: var(--brick);
+  cursor: pointer;
+  transition: transform 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.askme__chip:hover { transform: translateY(-2px); background: rgba(150, 29, 9, 0.08); }
+
+.askme__chip.is-asked { border-style: solid; }
+
+.askme__chip.is-active {
+  background: var(--brick);
+  border-color: var(--brick);
+  color: var(--cream);
+}
+
+.askme__answer {
+  min-height: 5.5rem;
+  border-inline-start: 3px solid var(--peach);
+  padding-inline-start: 0.9rem;
+}
+
+.askme__text {
+  font-size: var(--step-1);
+  line-height: 1.75;
+  animation: askme-in 0.45s var(--ease);
+}
+
+@keyframes askme-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.askme__source,
+.askme__empty,
+.askme__done {
+  display: block;
+  font-size: var(--step-sm);
+  opacity: 0.85;
+  margin-top: 0.5rem;
+}
+
+.askme__done { color: var(--brick); font-family: var(--font-bold); }
+
+@media (prefers-reduced-motion: reduce) {
+  .askme__text { animation: none; }
+  .askme__chip:hover { transform: none; }
+}

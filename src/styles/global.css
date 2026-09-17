@@ -1,0 +1,406 @@
+@import './fonts.css';
+@import './tokens.css';
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--sand);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  line-height: 1.95;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-bold);
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
+}
+
+p { margin: 0 0 0.9em; }
+
+button { font: inherit; color: inherit; cursor: pointer; }
+
+a { color: var(--brick); text-underline-offset: 6px; }
+
+::selection { background: var(--peach); color: var(--ink); }
+
+.section {
+  position: relative;
+  padding: clamp(4rem, 9vw, 8rem) var(--page-x);
+  scroll-margin-top: 0;
+}
+
+.section__kicker {
+  font-family: var(--font-bold);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  color: var(--brick);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.section__kicker::before {
+  content: '';
+  width: 34px;
+  height: 2px;
+  background: var(--brick);
+  display: block;
+}
+
+.section__title {
+  font-size: var(--step-3);
+  margin-bottom: 0.6rem;
+}
+
+.section__lead {
+  max-width: 88ch;
+  font-size: var(--step-1);
+  color: var(--ink-soft);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.skip-link {
+  /* Clipped rather than pushed off-canvas, which would widen the RTL page. */
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  background: var(--brick);
+  color: var(--cream);
+  padding: 0.6rem 1rem;
+  z-index: 200;
+}
+.skip-link:focus { width: auto; height: auto; overflow: visible; clip-path: none; }
+
+:focus-visible {
+  outline: 2px dashed var(--brick);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Leave room for the fixed chapter rail on wide screens. */
+@media (min-width: 721px) {
+  main { padding-left: 4.2rem; }
+}
+
+@media (max-width: 720px) {
+  main { padding-bottom: 4.2rem; }
+}
+
+/* Bidi helpers: Latin runs stay isolated inside RTL sentences. */
+bdi.ltr,
+code,
+.ltr {
+  unicode-bidi: isolate;
+  direction: ltr;
+  /* Latin runs use a Latin face so ASCII digits do not take Persian shapes. */
+  font-family: var(--font-bold);
+}
+
+/* Blocks whose content is fully English are laid out LTR on purpose. */
+.en-block {
+  direction: ltr;
+  font-family: var(--font-bold);
+  text-align: left;
+  unicode-bidi: isolate;
+}
+
+/* Short English labels inside an RTL column: read LTR, stay on the RTL edge. */
+.ltr-edge {
+  display: block;
+  direction: ltr;
+  font-family: var(--font-bold);
+  unicode-bidi: isolate;
+  text-align: right;
+}
+
+/* Visible to screen readers and search engines only. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+/* ---------------------------------------------------------------- playable hints */
+.playhint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-bold);
+  font-size: var(--step-sm);
+  color: var(--brick);
+  background: rgba(150, 29, 9, 0.08);
+  border: 1.5px dashed rgba(150, 29, 9, 0.45);
+  border-radius: 999px;
+  padding: 0.28rem 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.playhint::before {
+  content: '☞';
+  animation: playpulse 1.8s var(--ease) infinite;
+}
+
+@keyframes playpulse {
+  0%, 100% { transform: translateX(0); opacity: 0.75; }
+  50% { transform: translateX(-4px); opacity: 1; }
+}
+
+.playhint--inline { margin-bottom: 0.5rem; }
+
+.is-playable > button,
+.is-playable > a,
+button.is-playable,
+a.is-playable { position: relative; }
+
+.is-playable > button:focus-visible,
+.is-playable > a:focus-visible,
+button.is-playable:focus-visible,
+a.is-playable:focus-visible {
+  outline: 3px solid var(--ochre);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------- evidence links */
+.evidence {
+  margin-top: 1.2rem;
+  padding: 0.95rem 1.05rem 1rem;
+  border-top: 1px dashed rgba(43, 29, 21, 0.22);
+}
+
+.evidence__label {
+  display: block;
+  font-family: var(--font-bold);
+  font-size: var(--step-sm);
+  color: var(--brick);
+  margin-bottom: 0.45rem;
+}
+
+.evidence__row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.evidence__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--step-sm);
+  padding: 0.42rem 0.8rem;
+  border-radius: 3px;
+  text-decoration: none;
+  color: var(--ink);
+  border: 1.5px solid rgba(150, 29, 9, 0.35);
+  background: rgba(255, 236, 198, 0.6);
+  transition: transform 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.evidence__link:hover { transform: translateY(-2px); background: var(--cream); }
+
+.evidence__link--reel { border-color: rgba(92, 104, 58, 0.5); }
+
+.evidence__note { font-size: var(--step-sm); opacity: 0.85; margin-top: 0.45rem; }
+
+.evidence--compact { margin-top: 0.6rem; }
+
+/* ---------------------------------------------------------------- rulebooks + omid */
+.rulebooks { margin-top: 1.6rem; }
+.rulebooks h5 { font-family: var(--font-bold); font-size: var(--step-1); margin-bottom: 0.3rem; }
+.rulebooks__list { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; }
+.rulebooks__list a {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+  font-size: var(--step-sm);
+  padding: 0.45rem 0.85rem;
+  border: 1.5px solid rgba(150, 29, 9, 0.35);
+  border-radius: 3px;
+  background: rgba(255, 236, 198, 0.6);
+  color: var(--ink);
+  text-decoration: none;
+}
+.rulebooks__list a:hover { background: var(--cream); }
+
+.site__minigame { grid-column: 1 / -1; margin-top: 1.4rem; }
+.site__minigame h4 { font-family: var(--font-display); font-size: var(--step-2); }
+.site__details { grid-column: 1 / -1; margin-top: 1rem; display: grid; gap: 0.6rem; }
+.site__details li { font-size: var(--step-0); line-height: 1.7; }
+.site__interview { grid-column: 1 / -1; margin-top: 1.6rem; }
+.toc__seo { margin-top: 1.6rem; }
+.toc__seo ul { display: grid; gap: 0.5rem; margin-top: 0.5rem; }
+.toc__seo li { font-size: var(--step-0); }
+.boardgame__shot { margin-top: 1.2rem; }
+.boardgame__shot img { width: 100%; border-radius: var(--radius); }
+.boardgame__shot figcaption { font-size: var(--step-sm); opacity: 0.85; margin-top: 0.4rem; }
+
+/* ---------------------------------------------------------------- readability */
+.world-note, .tabs button, .scenes__format, figcaption, small { font-size: var(--step-sm); }
+
+@media (prefers-reduced-motion: reduce) {
+  .playhint::before { animation: none; }
+  .evidence__link:hover, .rulebooks__list a:hover { transform: none; }
+}
+
+
+/* ---------- paper + desk texture pass (keeps layout, changes surface) ---------- */
+:root {
+  --paper-grain:
+    repeating-linear-gradient(0deg, rgba(43, 29, 21, 0.035) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(43, 29, 21, 0.022) 0 1px, transparent 1px 4px);
+  --card-edge: 1px solid rgba(43, 29, 21, 0.16);
+  --card-lift: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 6px 16px -10px rgba(43, 29, 21, 0.45);
+}
+
+body {
+  background-image: var(--paper-grain);
+  background-attachment: fixed;
+}
+
+/* every panel now reads as a sheet on a desk instead of a flat web card */
+.world-body, .homepage-case, .gamification-note, .archive, .askme, .evidence,
+.rulebooks, .boardgame, .site__minigame, .site__interview, .catalog__sheet {
+  background-image: var(--paper-grain);
+  border: var(--card-edge);
+  box-shadow: var(--card-lift);
+}
+
+/* hand-cut corner on documents */
+.evidence, .rulebooks, .archive {
+  position: relative;
+  border-radius: 2px 14px 2px 14px;
+}
+
+/* tape strip on image proofs, like something pinned to the desk */
+.proof figure, .boardgame__shot, .site__shot, .site__minishot, .videos figure {
+  position: relative;
+}
+.proof figure::before, .boardgame__shot::before, .site__minishot::before {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2.5deg);
+  width: 72px;
+  height: 15px;
+  background: rgba(239, 179, 134, 0.62);
+  border-inline: 1px dashed rgba(150, 104, 12, 0.45);
+  z-index: 2;
+}
+
+/* handwritten-feeling interaction hints */
+.playhint {
+  border: 1px dashed var(--rust);
+  border-radius: 12px 4px 12px 4px;
+  background: rgba(255, 236, 198, 0.75);
+  color: var(--brick);
+}
+
+/* print-like rules instead of generic 1px borders */
+.tabs {
+  border-bottom: 2px solid rgba(43, 29, 21, 0.18);
+  border-image: repeating-linear-gradient(90deg, rgba(43, 29, 21, 0.3) 0 8px, transparent 8px 13px) 2;
+}
+.tabs button.is-active,
+.tabs button[aria-selected='true'] {
+  background: var(--cream);
+  color: var(--brick);
+  border-color: var(--brick);
+  box-shadow: 0 -2px 0 var(--brick) inset;
+}
+
+/* stage numbers look stamped */
+.stage-row__n, .doclist li::marker { color: var(--brick); }
+.stage-row__n {
+  border: 1px solid var(--ochre);
+  border-radius: 50%;
+  background: var(--cream);
+}
+
+/* documented-system checklist */
+.doclist {
+  margin: 0.9rem 0 0;
+  padding-inline-start: 1.1rem;
+  display: grid;
+  gap: 0.45rem;
+  font-size: var(--step-sm);
+  line-height: 1.75;
+}
+.doclist li { list-style: square; }
+.gamification-note__title {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-bold);
+  font-size: var(--step-1);
+  color: var(--brick);
+}
+
+/* smaller, sharper proof imagery */
+.boardgame__shot img, .site__minishot img {
+  width: min(100%, 420px);
+  height: auto;
+  display: block;
+  margin-inline: auto;
+  border: var(--card-edge);
+  border-radius: 8px;
+}
+.site__minishot { margin: 0.9rem 0 0.6rem; }
+.site__minishot figcaption {
+  font-size: var(--step-xs);
+  color: var(--ink-soft);
+  margin-top: 0.4rem;
+  text-align: center;
+}
+.videos video {
+  width: min(100%, 520px);
+  margin-inline: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body { background-attachment: scroll; }
+}
+
+/* ---------- render fixes after reviewing the static export ---------- */
+.world { overflow: visible; }
+.world__head { padding-top: 0.35rem; }
+.world__name { line-height: 1.5; }
+.world__latin { font-size: var(--step-xs); }
+.evidence__label { margin-bottom: 0.6rem; }
+.videos video, .lore__video video { width: min(100%, 460px); }
+.boardgame__shot img, .site__minishot img { width: min(100%, 360px); }
+.aparat figure video, .aparat iframe { max-width: 100%; }
