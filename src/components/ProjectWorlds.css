@@ -34,7 +34,7 @@
 
 .world__index {
   font-family: var(--font-bold);
-  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  font-size: var(--step-2);
   color: var(--accent);
   opacity: 0.55;
   line-height: 1;
@@ -65,7 +65,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
-  justify-content: flex-end;
+  justify-content: flex-start;
   max-width: 24rem;
 }
 
@@ -113,7 +113,7 @@
 .world__metrics b {
   display: block;
   font-family: var(--font-bold);
-  font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+  font-size: var(--step-1);
   color: var(--accent);
   line-height: 1.3;
 }
@@ -262,7 +262,7 @@
   background: rgba(255, 236, 198, 0.5);
 }
 
-.library__counts b { font-family: var(--font-bold); font-size: 1.5rem; color: var(--accent); display: block; }
+.library__counts b { font-family: var(--font-bold); font-size: var(--step-2); color: var(--accent); display: block; }
 .library__counts span { font-size: var(--step-sm); display: block; }
 .library__counts small { font-size: var(--step-xs); color: var(--ink-faint); }
 
@@ -285,7 +285,7 @@
 
 /* board game */
 .boardgame__head { display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 0.6rem; }
-.boardgame__head h4 { margin: 0; font-family: var(--font-bold); font-size: 1.1rem; }
+.boardgame__head h4 { margin: 0; font-family: var(--font-bold); font-size: var(--step-0); }
 .boardgame__slogan { color: var(--accent); font-size: var(--step-0); }
 .boardgame__text { line-height: 1.9; margin: 0 0 0.7rem 0; }
 .boardgame__credits { list-style: none; margin: 0.6rem 0; padding: 0; display: grid; gap: 0.3rem; }
@@ -394,6 +394,35 @@
   border-radius: 10px;
   overflow: hidden;
   background: var(--cream);
+}
+
+/* Before it is opened the prototype was a tall empty rectangle that read as a
+   broken embed. Unopened it is now a paper card the size of its own label, with
+   a dashed print rule and the grain used elsewhere on the page. */
+.proto__frame:has(.proto__load) {
+  aspect-ratio: auto;
+  max-width: 34rem;
+  min-height: 7.5rem;
+  border-style: dashed;
+  border-color: rgba(150, 29, 9, 0.4);
+  background-color: var(--cream);
+  background-image: var(--paper-grain);
+}
+
+.proto__frame:has(.proto__load):hover {
+  border-color: var(--brick);
+  box-shadow: 3px 4px 0 rgba(43, 29, 21, 0.12);
+}
+
+.proto__load {
+  padding: 1.1rem 1.4rem;
+  cursor: pointer;
+}
+
+.proto__load::before {
+  content: '▶';
+  font-size: var(--step-0);
+  color: var(--brick);
 }
 
 .proto__frame iframe { width: 100%; height: 100%; border: 0; display: block; }
@@ -583,7 +612,7 @@
 }
 
 .flow__label { font-size: var(--step-xs); color: var(--ink-faint); font-family: var(--font-bold); }
-.flow b { font-family: var(--font-bold); direction: ltr; unicode-bidi: isolate; text-align: right; font-size: 1rem; }
+.flow b { font-family: var(--font-bold); direction: ltr; unicode-bidi: isolate; text-align: right; font-size: var(--step-0); }
 .flow__note { font-size: var(--step-sm); color: var(--ink-soft); }
 
 .lore__video { margin: 0; }
@@ -744,7 +773,7 @@
   align-items: start;
 }
 
-.chain__text h5 { margin: 0 0 0.35rem; font-size: 1.02rem; }
+.chain__text h5 { margin: 0 0 0.35rem; font-size: var(--step-0); }
 .chain__text p { margin: 0 0 0.8rem; color: var(--ink-soft); }
 
 .chain__film { margin: 0; opacity: 0.55; transition: opacity 0.4s var(--ease); }

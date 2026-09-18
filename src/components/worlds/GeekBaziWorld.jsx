@@ -103,7 +103,7 @@ export default function GeekBaziWorld({ project }) {
           </ul>
           {project.boardGame.image && (
             <figure className="boardgame__shot">
-              <img src={project.boardGame.image} alt={project.boardGame.imageAlt} loading="lazy" />
+              <img src={project.boardGame.image} alt={project.boardGame.imageAlt} width="640" height="645" loading="lazy" decoding="async" />
               <figcaption><T>{project.boardGame.imageCaption}</T></figcaption>
             </figure>
           )}
@@ -116,7 +116,7 @@ export default function GeekBaziWorld({ project }) {
                 className="evidence__link evidence__link--doc is-playable"
                 href={docUrl(project.boardGame.rulebookDoc)}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
               >
                 <span aria-hidden="true">۞</span>
                 دفترچهٔ قانون عشق عددی
@@ -130,7 +130,7 @@ export default function GeekBaziWorld({ project }) {
         <div className="proof">
           {project.proof.map((item, index) => (
             <figure key={item.src}>
-              <img src={item.src} alt={item.title} loading="lazy" />
+              <img src={item.src} alt={`اسکرین‌شات اینستاگرام: ${item.title}`} width="620" height="1286" loading="lazy" decoding="async" />
               <figcaption>
                 <b><T>{item.title}</T></b>
                 <span><T>{item.stats}</T></span>
@@ -154,7 +154,7 @@ export default function GeekBaziWorld({ project }) {
           </ul>
           <div className="library__grid">
             {project.grid.map((src) => (
-              <img key={src} src={src} alt="نمایی از صفحهٔ گیک‌بازی" loading="lazy" />
+              <img key={src} src={src} alt="نمایی از پست‌های صفحهٔ اینستاگرام گیک‌بازی" width="720" height="1506" loading="lazy" decoding="async" />
             ))}
           </div>
           <p className="world-note">{project.gridNote}</p>
@@ -165,7 +165,7 @@ export default function GeekBaziWorld({ project }) {
             <ul className="rulebooks__list">
               {rulebooks.map((book) => (
                 <li key={book.slug}>
-                  <a className="is-playable" href={docUrl(book.slug)} target="_blank" rel="noreferrer">
+                  <a className="is-playable" href={docUrl(book.slug)} target="_blank" rel="noopener noreferrer">
                     <span aria-hidden="true">۞</span>
                     <T>{book.title}</T>
                   </a>

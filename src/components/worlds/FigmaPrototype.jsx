@@ -26,7 +26,7 @@ export default function FigmaPrototype({ prototype }) {
         )}
       </div>
       {prototype.caption && <p className="proto__caption">{prototype.caption}</p>}
-      <a className="btn btn--outline" href={prototype.link} target="_blank" rel="noreferrer">
+      <a className="btn btn--outline" href={prototype.link} target="_blank" rel="noopener noreferrer">
         {prototype.label}
       </a>
     </div>

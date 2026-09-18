@@ -93,7 +93,7 @@ export default function ProjectWorld({ project, index }) {
       {project.links && (
         <div className="world__links">
           {project.links.map((link) => (
-            <a key={link.href} className="btn btn--outline" href={link.href} target="_blank" rel="noreferrer">
+            <a key={link.href} className="btn btn--outline" href={link.href} target="_blank" rel="noopener noreferrer">
               {link.label}
             </a>
           ))}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yashcistudy.github.io/yas-dastan/sitemap.xml
