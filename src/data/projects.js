@@ -415,6 +415,28 @@ export const projects = [
       'اکوسیستم سخت‌افزاری',
       'مشتریان ماپرا'
     ],
+    documents: [
+      {
+        title: 'کتابچهٔ ماپرا',
+        note: 'نسخهٔ کامل کتابچهٔ محصول، با جلد.',
+        meta: '۱۰ صفحه',
+        file: 'mupra-booklet.pdf',
+        preview: 'booklet-cover.jpg',
+        previewAlt: 'جلد و پشت جلد کتابچهٔ ماپرا',
+        previewWidth: 1200,
+        previewHeight: 600
+      },
+      {
+        title: 'بروشور دیجیتال ماپرا',
+        note: 'بروشوری که برای معرفی ماپرا نوشته شد.',
+        meta: '۲ صفحه',
+        file: 'mupra-brochure.pdf',
+        preview: 'brochure-page.jpg',
+        previewAlt: 'صفحهٔ اول بروشور دیجیتال ماپرا',
+        previewWidth: 1200,
+        previewHeight: 571
+      }
+    ],
     filesKey: 'mupra-files',
     seoArticles: [
       'قبل از خرید نرم‌افزار مدیریت کسب‌وکار این ۷ سوال را بپرسید!',

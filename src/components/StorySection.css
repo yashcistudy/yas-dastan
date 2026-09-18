@@ -4,7 +4,7 @@
 
 .story__body {
   display: grid;
-  grid-template-columns: 1.55fr 0.45fr;
+  grid-template-columns: minmax(0, 1.55fr) minmax(15rem, 0.45fr);
   gap: clamp(1.5rem, 4vw, 3rem);
   align-items: start;
   margin-bottom: clamp(2.5rem, 6vw, 4rem);
@@ -30,15 +30,29 @@
   background: var(--cream);
 }
 
+/* A taped up print, not a strip stretched down the column. The file is
+   900 by 1200, and left to itself in a narrow column it ran far past the
+   text beside it, so the frame keeps a calm four to five crop. */
 .story__portrait {
   margin: 0;
   border: 1px solid var(--line);
   padding: 8px;
   background: var(--cream);
   transform: rotate(-1.6deg);
+  width: 100%;
+  max-width: 21rem;
+  margin-inline-start: auto;
+  box-shadow: 4px 6px 0 rgba(43, 29, 21, 0.08);
 }
 
-.story__portrait img { width: 100%; display: block; }
+.story__portrait img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 50% 22%;
+}
 
 .story__beliefs {
   display: grid;

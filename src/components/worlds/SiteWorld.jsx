@@ -26,8 +26,8 @@ export default function SiteWorld({ project }) {
           <p className="playhint playhint--inline">رمز سه‌تاس رو می‌تونید روی سایت زنده بازی کنید.</p>
           <h4>{project.site.miniGame.title}</h4>
           <figure className="site__minishot">
-            <img src={mini} alt="مینی‌گیم حدس رمز سه تاس در صفحهٔ اول سایت امید حیدری" width="340" height="351" loading="lazy" decoding="async" />
-            <figcaption>تاس‌ها روی همون میز چوبی صفحهٔ اول؛ پنج فرصت برای حدس رمز.</figcaption>
+            <img src={mini} alt="مینی‌گیم حدس رمز سه‌تاس در سایت امید حیدری: سه جایگاه تاس و دکمهٔ ثبت حدس" width="900" height="573" loading="lazy" decoding="async" />
+            <figcaption>سه جایگاه تاس، پنج فرصت، و دو نوع راهنما: جای درست و جای دیگر.</figcaption>
           </figure>
           <p><T>{project.site.miniGame.text}</T></p>
         </div>

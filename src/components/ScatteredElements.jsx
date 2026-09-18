@@ -56,21 +56,57 @@ function overlaps(a, b) {
  * shuffles them with a stable seed so the result still looks scattered by hand,
  * then accepts a position only when it also clears the cards already placed.
  */
-function packSlots(board, blocked, cardW, cardH, needed) {
-  const STEP = 12
+function packSlots(board, blocked, cardW, cardH, needed, gap, pad, tilted = true) {
+  const STEP = 8
+  // A card is tilted, so what the visitor actually sees is bigger than the
+  // layout box: a nine degree tilt pushes the painted corners out by roughly
+  // eight per cent of the other side. The obstacle test uses that painted box,
+  // otherwise a corner of a card creeps over the headline or the illustration.
+  const tiltX = tilted ? cardH * 0.09 + 2 : 0
+  const tiltY = tilted ? cardW * 0.09 + 2 : 0
+  const walls = blocked.map((rect) => ({
+    x: rect.x - pad,
+    y: rect.y - pad,
+    w: rect.w + pad * 2,
+    h: rect.h + pad * 2
+  }))
   const candidates = []
   for (let y = 0; y + cardH <= board.h; y += STEP) {
     for (let x = 0; x + cardW <= board.w; x += STEP) {
       const box = { x, y, w: cardW, h: cardH }
-      if (blocked.some((rect) => overlaps(box, rect))) continue
+      const painted = { x: x - tiltX, y: y - tiltY, w: cardW + tiltX * 2, h: cardH + tiltY * 2 }
+      if (walls.some((rect) => overlaps(painted, rect))) continue
       candidates.push(box)
     }
   }
   candidates.sort((a, b) => seeded(a.x * 31 + a.y * 7) - seeded(b.x * 31 + b.y * 7))
   const placed = []
   for (const box of candidates) {
-    const padded = { x: box.x - GAP, y: box.y - GAP, w: cardW + GAP * 2, h: cardH + GAP * 2 }
+    const padded = { x: box.x - gap, y: box.y - gap, w: cardW + gap * 2, h: cardH + gap * 2 }
     if (placed.some((done) => overlaps(padded, done))) continue
+    placed.push(box)
+    if (placed.length === needed) break
+  }
+  return { placed, candidates }
+}
+
+/**
+ * Last resort, used only on the narrow laptop widths where no card size lets
+ * all fourteen keep their distance. Cards are allowed to lean on each other
+ * the way loose paper does, but never by more than a third of a card, so every
+ * piece stays readable and clickable. Anything is better than the old
+ * behaviour, which gave up and stacked all fourteen in one corner.
+ */
+function relax(candidates, needed, cardW, cardH) {
+  const budget = cardW * cardH * 0.32
+  const placed = []
+  for (const box of candidates) {
+    const tooMuch = placed.some((done) => {
+      const ix = Math.min(box.x + cardW, done.x + cardW) - Math.max(box.x, done.x)
+      const iy = Math.min(box.y + cardH, done.y + cardH) - Math.max(box.y, done.y)
+      return ix > 0 && iy > 0 && ix * iy > budget
+    })
+    if (tooMuch) continue
     placed.push(box)
     if (placed.length === needed) break
   }
@@ -120,76 +156,113 @@ export default function ScatteredElements({ onProgress }) {
       [...document.querySelectorAll(selector)].map((node) => {
         const rect = node.getBoundingClientRect()
         return {
-          x: rect.left - bounds.left - PAD,
-          y: rect.top - bounds.top - PAD,
-          w: rect.width + PAD * 2,
-          h: rect.height + PAD * 2
+          x: rect.left - bounds.left,
+          y: rect.top - bounds.top,
+          w: rect.width,
+          h: rect.height
         }
       })
     ).filter((rect) => rect.w > 0 && rect.h > 0)
     // Keep the very top strip free for the group labels that fade in on sorting.
     blocked.push({ x: 0, y: 0, w: bounds.width, h: 46 })
 
-    // Cards are rotated, so their painted box is wider than their layout box.
-    // Insetting the usable area keeps a tilted card from hanging off the desk.
-    const ROTATION_MARGIN = 26
-    const area = { w: bounds.width - ROTATION_MARGIN * 2, h: bounds.height - ROTATION_MARGIN * 2 }
+    // Cards are rotated, so their painted box is bigger than their layout box.
+    // A card tilted by nine degrees hangs over its box by about 8% of its
+    // height sideways and 8% of its width up and down, so the inset is not
+    // square: a generous square margin threw away the narrow columns beside
+    // the illustration and left half the desk unusable.
+    const MARGIN_X = 12
+    const MARGIN_Y = 22
+    const area = { w: bounds.width - MARGIN_X * 2, h: bounds.height - MARGIN_Y * 2 }
     const shifted = blocked.map((rect) => ({
       ...rect,
-      x: rect.x - ROTATION_MARGIN,
-      y: rect.y - ROTATION_MARGIN
+      x: rect.x - MARGIN_X,
+      y: rect.y - MARGIN_Y
     }))
 
-    // Shrink the card box step by step until every card owns its own cell,
-    // instead of letting two cards share one slot.
-    const sizes = [
-      [Math.min(196, Math.max(150, bounds.width * 0.145)), 92],
-      [168, 88],
-      [150, 84],
-      [136, 80],
-      [124, 76]
+    // Shrink the card box, and then the breathing room around it, step by step
+    // until all fourteen cards own their own cell. On a 1200 to 1400 wide
+    // laptop the old ladder ran out after eight or ten cards, the component
+    // decided the desk was unplayable and dropped every card at the corner.
+    // Card width, card height, room between cards, room around the obstacles.
+    // Narrow laptops need the last rows: there the cards get smaller so all
+    // fourteen still keep their own cell.
+    const steps = [
+      [Math.min(196, Math.max(150, bounds.width * 0.145)), 92, 12, PAD],
+      [176, 90, 12, PAD],
+      [160, 86, 10, PAD],
+      [148, 84, 9, PAD],
+      [136, 80, 8, PAD],
+      [128, 78, 7, PAD],
+      [120, 74, 6, PAD],
+      [112, 72, 5, PAD],
+      [104, 70, 4, PAD]
     ]
-    let cardW = sizes[0][0]
-    let cardH = sizes[0][1]
+    let cardW = steps[0][0]
+    let cardH = steps[0][1]
     let cells = []
-    for (const [w, h] of sizes) {
-      const candidate = packSlots(area, shifted, w, h, total)
+    let pool = []
+    for (const [w, h, gap, pad] of steps) {
+      const { placed, candidates } = packSlots(area, shifted, w, h, total, gap, pad)
       cardW = w
       cardH = h
-      cells = candidate
-      if (candidate.length >= total) break
+      cells = placed
+      pool = candidates
+      if (placed.length >= total) break
     }
-    if (!cells.length) {
+    if (cells.length < total) cells = relax(pool, total, cardW, cardH)
+    if (cells.length < total) {
       setLayout(null)
       return
     }
     const place = (box) => ({
-      start: (rtl ? area.w - (box.x + cardW) : box.x) + ROTATION_MARGIN,
-      top: box.y + ROTATION_MARGIN
+      start: (rtl ? area.w - (box.x + cardW) : box.x) + MARGIN_X,
+      top: box.y + MARGIN_Y
     })
     const scatterSlots = new Map()
     scattered.forEach((fragment, index) => {
       const box = cells[index]
       if (box) scatterSlots.set(fragment.id, place(box))
     })
-    // Sorted cards line up in group columns inside the same free region.
-    const byColumn = new Map()
-    cells.forEach((box) => {
-      const key = Math.round(box.x)
-      if (!byColumn.has(key)) byColumn.set(key, [])
-      byColumn.get(key).push(box)
-    })
-    const columns = [...byColumn.keys()].sort((a, b) => a - b).map((key) => byColumn.get(key))
+    // Sorted cards line up in group piles. They reuse the very same measured
+    // cells the scattered cards came from, only reordered, so the tidy desk is
+    // guaranteed to be free of collisions as well. The earlier version handed
+    // out cells with a modulo, which quietly gave the same cell to several
+    // cards: the desk looked messier after tidying than before it.
+    // A sorted card lies straight, so it takes less room than a tilted one and
+    // a second, tilt free pass can find cleaner cells.
+    const straight = packSlots(area, shifted, cardW, cardH, total, 5, PAD, false).placed
+    const tidyCells = straight.length >= total ? straight : cells
+
+    // Tidying has to look tidy. The cells are sorted across the desk and then
+    // handed out in one unbroken run per group, so each group ends up in its
+    // own zone instead of staying sprinkled about, and its label is parked over
+    // that zone rather than on a fixed grid that lined up with nothing.
+    // Reading order is right to left, which in this measured space means
+    // descending x, so the first group sits where a Persian reader starts.
+    const ordered = [...tidyCells].sort((a, b) => b.x - a.x || a.y - b.y)
     const tidySlots = new Map()
-    fragmentGroups.forEach((group, groupIndex) => {
-      const column = columns[groupIndex % Math.max(1, columns.length)] || []
+    const groupSlots = new Map()
+    let cursor = 0
+    fragmentGroups.forEach((group) => {
       const inGroup = scattered.filter((item) => item.group === group.id)
+      const zone = ordered.slice(cursor, cursor + inGroup.length).sort((a, b) => a.y - b.y || b.x - a.x)
+      cursor += inGroup.length
       inGroup.forEach((item, itemIndex) => {
-        const box = column[itemIndex % Math.max(1, column.length)]
+        const box = zone[itemIndex]
         if (box) tidySlots.set(item.id, place(box))
       })
+      if (zone.length) {
+        const top = Math.min(...zone.map((box) => box.y))
+        const middle = zone.reduce((sum, box) => sum + box.x, 0) / zone.length
+        groupSlots.set(group.id, place({ x: middle, y: Math.max(0, top - 26) }))
+      }
     })
-    setLayout({ cardW, cardH, scatterSlots, tidySlots })
+
+    // Keep the clamp in step with the card height, so the last visible line
+    // is never sliced through the middle of the letters.
+    const lines = Math.max(2, Math.floor((cardH - 20) / 24))
+    setLayout({ cardW, cardH, lines, scatterSlots, tidySlots, groupSlots })
   }, [narrow, scattered, total])
 
   useLayoutEffect(() => {
@@ -250,16 +323,34 @@ export default function ScatteredElements({ onProgress }) {
         positioned ? ' desk--placed' : ''
       }`}
       ref={boardRef}
-      style={layout ? { '--note-w': `${layout.cardW}px`, '--note-h': `${layout.cardH}px` } : undefined}
+      style={
+        layout
+          ? {
+              '--note-w': `${layout.cardW}px`,
+              '--note-h': `${layout.cardH}px`,
+              '--note-lines': layout.lines
+            }
+          : undefined
+      }
       data-placed={layout ? layout.scatterSlots.size : 0}
       onPointerMove={reducedMotion || compact ? undefined : handlePointerMove}
     >
-      <div className="desk__groups" aria-hidden="true">
-        {fragmentGroups.map((group) => (
-          <span key={group.id} className="desk__group-label" style={{ color: group.color }}>
-            {group.label}
-          </span>
-        ))}
+      <div className={`desk__groups${positioned ? ' desk__groups--placed' : ''}`} aria-hidden="true">
+        {fragmentGroups.map((group) => {
+          const slot = positioned ? layout.groupSlots.get(group.id) : null
+          return (
+            <span
+              key={group.id}
+              className="desk__group-label"
+              style={{
+                color: group.color,
+                ...(slot ? { '--x': `${slot.start}px`, '--y': `${slot.top}px` } : null)
+              }}
+            >
+              {group.label}
+            </span>
+          )
+        })}
       </div>
 
       <ul className="desk__list">

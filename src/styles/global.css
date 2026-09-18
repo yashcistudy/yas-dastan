@@ -18,6 +18,19 @@ body {
   overflow-x: hidden;
 }
 
+/* Every image and video carries width and height attributes so the browser can
+   reserve its space before the file arrives. Those attributes are also a
+   presentational hint, so without this reset a picture kept the pixel height
+   written in the markup while its width flexed with the column, and it came
+   out squashed or stretched. The ratio comes from the file, not the markup. */
+img,
+video,
+svg,
+iframe { max-width: 100%; }
+
+img,
+video { height: auto; }
+
 h1, h2, h3, h4 {
   font-family: var(--font-bold);
   font-weight: 700;

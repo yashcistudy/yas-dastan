@@ -1,31 +1,21 @@
-import { useState } from 'react'
 import EvidenceLinks from './EvidenceLinks.jsx'
 import T from '../../utils/Bidi.jsx'
 
 /**
- * Aparat player, loaded on click.
+ * Aparat player.
  *
- * The embed pulls third party scripts, so it stays out of the first paint:
- * the visitor sees a paper card and the player appears when they ask for it.
+ * The video shows itself. An earlier version hid every player behind a paper
+ * card you had to click, which saved a few requests and cost the section its
+ * looks: four grey rectangles where the work should be. The iframe is lazy
+ * instead, so nothing loads until the visitor scrolls the video into view.
  */
 export default function AparatEmbed({ video }) {
-  const [playing, setPlaying] = useState(false)
-  const src = `https://www.aparat.com/video/video/embed/videohash/${video.hash}/vt/frame?titleShow=true&autoplay=true`
+  const src = `https://www.aparat.com/video/video/embed/videohash/${video.hash}/vt/frame?titleShow=true`
 
   return (
     <figure className="aparat">
       <div className="aparat__frame">
-        {playing ? (
-          <iframe title={video.title} src={src} allowFullScreen loading="lazy" />
-        ) : (
-          <button type="button" className="aparat__poster is-playable" onClick={() => setPlaying(true)}>
-            <span className="aparat__play" aria-hidden="true">▶</span>
-            <span className="aparat__posterlabel">
-              <b><T>{video.title}</T></b>
-              <span>ویدیو رو اینجا باز کنید</span>
-            </span>
-          </button>
-        )}
+        <iframe title={video.title} src={src} allowFullScreen loading="lazy" />
       </div>
       <figcaption>
         <b><T>{video.title}</T></b>
