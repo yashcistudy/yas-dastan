@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import DocPreview from './DocPreview.jsx'
 import EvidenceLinks from './EvidenceLinks.jsx'
 import T from '../../utils/Bidi.jsx'
 
@@ -84,6 +85,14 @@ export default function MupraWorld({ project }) {
 
       {tab === 'catalog' && (
         <div className="toc">
+          {project.documents && (
+            <div className="docprevs">
+              {project.documents.map((doc) => (
+                <DocPreview key={doc.file} doc={doc} />
+              ))}
+            </div>
+          )}
+
           <h4>ستون فقرات کتابچه</h4>
           <ol>
             {project.catalogToc.map((item) => (

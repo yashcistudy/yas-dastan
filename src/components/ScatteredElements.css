@@ -47,7 +47,7 @@
 .desk--placed .note__text,
 .desk--tray .note__text {
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: var(--note-lines, 3);
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -77,6 +77,11 @@
   overflow-wrap: break-word;
   cursor: pointer;
 }
+
+/* A card that has found its place slides in behind the loose ones. Without
+   this, a tidy card could come to rest on top of a card still waiting to be
+   sorted and make it impossible to reach. */
+.note.is-sorted { z-index: 1; }
 
 /* Picking a card up lifts it above its neighbours instead of being cut off. */
 .desk--placed .note:hover,
@@ -129,6 +134,25 @@
   font-size: var(--step-xs);
   opacity: 0;
   transition: opacity 0.6s var(--ease);
+}
+
+/* On a measured desk each label sits over the zone its own group tidies into,
+   so the four piles are named where they actually are. */
+.desk__groups--placed {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  width: auto;
+  display: block;
+}
+
+.desk__groups--placed .desk__group-label {
+  position: absolute;
+  inset-inline-start: var(--x, 0);
+  top: var(--y, 0);
+  width: var(--note-w);
+  text-align: center;
+  transition: inset-inline-start 0.75s var(--ease), top 0.75s var(--ease);
 }
 
 .desk:has(.note.is-sorted) .desk__groups { opacity: 0.85; }
@@ -240,3 +264,7 @@
   justify-content: flex-start;
   padding: 0.6rem 0.8rem;
 }
+
+/* Once the desk is clean the invitation to clean it is noise, and the line
+   beside the headline already says what happened. */
+.desk.is-complete .playhint--inline { display: none; }

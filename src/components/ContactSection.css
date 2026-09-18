@@ -3,10 +3,12 @@
   padding-bottom: clamp(5rem, 10vw, 8rem);
 }
 
-.contact__inner { max-width: 60ch; }
+.contact__inner { max-width: 60ch; margin-inline: auto; }
 
 /* The form needs more room than the reading column. */
-.contact__inner:has(.cform) { max-width: min(46rem, 100%); }
+/* The form widens the block, and without this it sat hard against the
+   start edge with a field of empty paper beside it. */
+.contact__inner:has(.cform) { max-width: min(46rem, 100%); margin-inline: auto; }
 
 .contact__line { font-size: var(--step-1); color: var(--ink-soft); }
 

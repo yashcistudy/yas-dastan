@@ -2,7 +2,23 @@
 
 .projects__head { max-width: 90ch; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
 
-.projects__list { display: grid; gap: clamp(1.5rem, 4vw, 3rem); }
+/* An explicit minmax(0, 1fr) column, and min-width zero on the boxes nested
+   inside it, stop a long line of text deep in a grid from setting the width of
+   the whole list. Without it one project measured fourteen thousand pixels
+   wide, every other project was stretched to match, and most of the content
+   sat outside the page where the visitor could never see or reach it. */
+.projects__list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+.world,
+.world__head,
+.world__narrative,
+.world__metrics,
+.world-body,
+.world-body > * { min-width: 0; }
 
 .world {
   background: var(--tint, transparent);
@@ -384,7 +400,8 @@
 .catalog__goal { color: var(--ink-soft); margin: 0; }
 
 /* prototype */
-.proto { display: grid; gap: 0.7rem; justify-items: start; }
+.proto { display: grid; gap: 0.7rem; justify-items: start; max-width: 100%; }
+.proto__caption { max-width: 62ch; }
 
 .proto__frame {
   width: 100%;
@@ -838,3 +855,44 @@
   .chain__track::before,
   .chain__track::after { display: none; }
 }
+
+/* Finished documents, shown as paper instead of announced as a link. */
+.docprevs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  gap: 1.2rem;
+  margin-bottom: 1.8rem;
+}
+
+.docprev { margin: 0; display: grid; gap: 0.7rem; }
+
+.docprev__sheet {
+  display: block;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  padding: 7px;
+  box-shadow: 4px 6px 0 rgba(43, 29, 21, 0.1);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+
+.docprev__sheet:hover,
+.docprev__sheet:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 5px 8px 0 rgba(150, 29, 9, 0.16);
+}
+
+.docprev__sheet img { width: 100%; height: auto; display: block; }
+
+.docprev figcaption { display: grid; gap: 0.25rem; }
+.docprev figcaption b { font-family: var(--font-bold); font-size: var(--step-0); }
+.docprev figcaption span { font-size: var(--step-sm); color: var(--ink-soft); }
+.docprev__meta { font-size: var(--step-xs); color: var(--ink-faint); }
+
+.docprev__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.docprev__actions .btn { padding: 0.45rem 1.1rem; font-size: var(--step-xs); }
