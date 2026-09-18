@@ -41,7 +41,7 @@ a { color: var(--brick); text-underline-offset: 6px; }
 
 .section__kicker {
   font-family: var(--font-bold);
-  font-size: 0.82rem;
+  font-size: var(--step-xs);
   letter-spacing: 0.06em;
   color: var(--brick);
   display: inline-flex;
@@ -315,8 +315,9 @@ body {
   content: '';
   position: absolute;
   top: -9px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-2.5deg);
+  inset-inline: 0;
+  margin-inline: auto;
+  transform: rotate(-2.5deg);
   width: 72px;
   height: 15px;
   background: rgba(239, 179, 134, 0.62);

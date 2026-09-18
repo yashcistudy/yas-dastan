@@ -23,7 +23,7 @@ export default function EvidenceLinks({ forKey, compact = false }) {
             className="evidence__link evidence__link--doc is-playable"
             href={docUrl(doc.slug)}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             <span aria-hidden="true">۞</span>
             <T>{doc.label}</T>
@@ -35,7 +35,7 @@ export default function EvidenceLinks({ forKey, compact = false }) {
             className="evidence__link evidence__link--reel is-playable"
             href={reel.url}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             <span aria-hidden="true">▶</span>
             <T>{reel.label}</T>

@@ -24,7 +24,7 @@
   gap: 0.5rem;
   text-decoration: none;
   color: var(--ink-soft);
-  font-size: 0.78rem;
+  font-size: var(--step-xs);
   font-family: var(--font-bold);
 }
 
@@ -54,7 +54,10 @@
 .rail a.is-active { color: var(--brick); }
 .rail a.is-active .rail__dot { background: var(--brick); transform: scale(1.25); }
 
-@media (max-width: 720px) {
+/* The vertical rail used to sit inside the page gutter and clip the edge of the
+   content from 721px up to about 1400px. Below 1200px it becomes a bottom bar,
+   and above it the collapsed rail is slim enough to stay in the gutter. */
+@media (max-width: 1199px) {
   .rail {
     top: auto;
     bottom: 0.6rem;
@@ -65,4 +68,18 @@
   }
   .rail ul { grid-auto-flow: column; gap: 0.9rem; }
   .rail__label { display: none; }
+}
+
+@media (min-width: 1200px) {
+  .rail { inset-inline-end: 0.35rem; }
+  .rail ul { padding: 0.6rem 0.4rem; background: rgba(255, 236, 198, 0.94); }
+  .rail a:hover .rail__label,
+  .rail a:focus-visible .rail__label,
+  .rail a.is-active .rail__label { max-width: 6.5rem; }
+}
+
+/* The bottom bar floats over the page, so the last line of content is not
+   hidden behind it. */
+@media (max-width: 1199px) {
+  body { padding-bottom: 4.4rem; }
 }

@@ -41,7 +41,7 @@ export default function ContactSection() {
         <ul className="contact__channels">
           {contact.channels.map((channel) => (
             <li key={channel.href}>
-              <a href={channel.href} target="_blank" rel="noreferrer">
+              <a href={channel.href} target="_blank" rel="noopener noreferrer">
                 {channel.label}
               </a>
             </li>

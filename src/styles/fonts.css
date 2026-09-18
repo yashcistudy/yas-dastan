@@ -1,7 +1,10 @@
-/* Persian display + text faces supplied with the brand kit. */
+/* Persian display + text faces supplied with the brand kit.
+   WOFF2 first (about a third of the TTF weight), TTF kept as a fallback.
+   Paths stay relative so the /yas-dastan/ subpath keeps working. */
 @font-face {
   font-family: 'FarDastan';
-  src: url('./fonts/FarDastan.ttf') format('truetype');
+  src: url('./fonts/FarDastan.woff2') format('woff2'),
+       url('./fonts/FarDastan.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -9,7 +12,8 @@
 
 @font-face {
   font-family: 'MjNewspaper';
-  src: url('./fonts/MjNewspaper.ttf') format('truetype');
+  src: url('./fonts/MjNewspaper.woff2') format('woff2'),
+       url('./fonts/MjNewspaper.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;

@@ -85,7 +85,7 @@ export default function ChainReaction({ chain }) {
             src={chain.video.src}
             poster={chain.video.poster}
             controls
-            preload="metadata"
+            preload="none"
             playsInline
             onPlay={() => {
               setPlaying(true)

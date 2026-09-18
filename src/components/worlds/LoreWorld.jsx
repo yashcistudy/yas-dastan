@@ -55,7 +55,7 @@ export default function LoreWorld({ project }) {
         ))}
       </ul>
 
-      <a className="btn btn--outline" href={project.deck.href} target="_blank" rel="noreferrer">
+      <a className="btn btn--outline" href={project.deck.href} target="_blank" rel="noopener noreferrer">
         {project.deck.label}
       </a>
     </div>

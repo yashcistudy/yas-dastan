@@ -42,7 +42,7 @@ export default function WritingArchive() {
       <ul className="archive__strip">
         {active.items.map((item) => (
           <li key={item.slug}>
-            <a href={docUrl(item.slug)} target="_blank" rel="noreferrer" className="is-playable">
+            <a href={docUrl(item.slug)} target="_blank" rel="noopener noreferrer" className="is-playable">
               <span className="archive__icon" aria-hidden="true">۞</span>
               <span className="archive__title">{item.title}</span>
               <span className="archive__open">باز کن</span>

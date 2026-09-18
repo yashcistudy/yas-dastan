@@ -37,7 +37,10 @@ export default function MupraWorld({ project }) {
           <img
             src={`${base}assets/images/projects/mupra/${project.journeyWall.image}`}
             alt="دیوار سفر مشتری ماپرا در نمایشگاه ریتیل‌شو"
+            width="1050"
+            height="522"
             loading="lazy"
+            decoding="async"
           />
           <figcaption><T>{project.journeyWall.caption}</T></figcaption>
         </figure>
@@ -68,7 +71,10 @@ export default function MupraWorld({ project }) {
                   className="ux__shot"
                   src={`${base}assets/images/projects/mupra/${item.image}`}
                   alt={item.imageAlt || ''}
+                  width="1400"
+                  height="664"
                   loading="lazy"
+                  decoding="async"
                 />
               )}
             </div>

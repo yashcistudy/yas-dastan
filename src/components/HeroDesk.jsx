@@ -41,7 +41,14 @@ export default function HeroDesk() {
         </div>
 
         <div className="hero__illustration">
-          <img src={illustration} alt="تصویرسازی یاس پشت لپ‌تاپ" />
+          <img
+            src={illustration}
+            alt="تصویرسازی یاس دستان پشت لپ‌تاپ، پشت میزی پر از کاغذهای ایده"
+            width="655"
+            height="692"
+            decoding="async"
+            fetchPriority="high"
+          />
         </div>
       </div>
 
