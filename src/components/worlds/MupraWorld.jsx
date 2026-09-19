@@ -18,7 +18,7 @@ export default function MupraWorld({ project }) {
   return (
     <div className="world-body">
       <p className="playhint playhint--inline">چهار برچسب اینجاست؛ هرکدوم رو بزنید یه تکه از کار رو می‌بینید.</p>
-      <div className="tabs is-playable" role="tablist" aria-label="بخش‌های پروژهٔ ماپرا">
+      <div className="tabs is-playable" role="tablist" aria-label="بخش‌های پروژه ماپرا">
         {TABS.map((t) => (
           <button
             key={t.id}

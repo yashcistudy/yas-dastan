@@ -21,7 +21,7 @@ export default function FigmaPrototype({ prototype }) {
         ) : (
           <button type="button" className="proto__load" onClick={() => setLoaded(true)}>
             <span>پروتوتایپ را همین‌جا باز کن</span>
-            <small>قابل کلیک، مثل نسخهٔ واقعی</small>
+            <small>قابل کلیک، مثل نسخه واقعی</small>
           </button>
         )}
       </div>

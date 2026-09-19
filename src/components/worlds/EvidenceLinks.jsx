@@ -15,7 +15,7 @@ export default function EvidenceLinks({ forKey, compact = false }) {
 
   return (
     <div className={`evidence${compact ? ' evidence--compact' : ''}`}>
-      <span className="evidence__label">نوشتهٔ من، قابل دیدن</span>
+      <span className="evidence__label">نوشته من، قابل دیدن</span>
       <div className="evidence__row">
         {docs.map((doc) => (
           <a

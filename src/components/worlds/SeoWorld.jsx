@@ -11,7 +11,7 @@ export default function SeoWorld({ project }) {
         <span className="seo__search-icon" aria-hidden="true">🔍</span>
         <span className="seo__search-query ltr-edge" lang="fa"><T>{active.keyword}</T></span>
         <span className="seo__search-result">
-          نتیجه: رتبهٔ <b>{active.rank}</b> در گوگل
+          نتیجه: رتبه <b>{active.rank}</b> در گوگل
         </span>
       </div>
 
@@ -35,7 +35,7 @@ export default function SeoWorld({ project }) {
         ))}
       </ul>
       <p className="world-note">
-        هر عدد، رتبهٔ همان مقاله برای همان کلیدواژه در نتایج گوگل است؛ روی هر ردیف بزن تا در نوار بالا ببینی.
+        هر عدد، رتبه همان مقاله برای همان کلیدواژه در نتایج گوگل است؛ روی هر ردیف بزن تا در نوار بالا ببینی.
         رتبه‌ها از گزارش «مقاله‌های منتشرشده + رنک». نویسنده: یاسمین دستان‌زاده.
       </p>
     </div>
