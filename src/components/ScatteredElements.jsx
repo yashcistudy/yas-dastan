@@ -389,7 +389,7 @@ export default function ScatteredElements({ onProgress }) {
       </ul>
 
       <div className="desk__hud">
-        <p className="playhint playhint--inline">می‌تونید همۀ ایده‌های روی میز رو مرتب کنید؟</p>
+        <p className="playhint playhint--inline">می‌تونید همه ایده‌های روی میز رو مرتب کنید؟</p>
         <p className="desk__progress">
           <b>{toPersianDigits(done)}</b> از <b>{toPersianDigits(total)}</b> {hero.progressLabel}
         </p>

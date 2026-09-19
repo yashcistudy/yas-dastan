@@ -17,7 +17,7 @@ export default function WritingArchive() {
     <section className="archive" aria-label="آرشیو نوشته‌ها">
       <header className="archive__head">
         <h5>آرشیو نوشتن</h5>
-        <p className="playhint playhint--inline">روی هر فایل بزنید تا نوشتهٔ اصلیش باز بشه.</p>
+        <p className="playhint playhint--inline">روی هر فایل بزنید تا نوشته اصلیش باز بشه.</p>
         <p className="archive__count">{archiveCount} فایل از نوشته‌های خودم، همه قابل باز شدن.</p>
       </header>
 

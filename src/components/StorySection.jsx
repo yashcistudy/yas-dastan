@@ -30,7 +30,7 @@ export default function StorySection() {
         </div>
 
         <figure className={`story__portrait reveal${inView ? ' is-in' : ''}`}>
-          <img src={portrait} alt="پرترهٔ یاس دستان" width="900" height="1200" loading="lazy" decoding="async" />
+          <img src={portrait} alt="پرتره یاس دستان" width="900" height="1200" loading="lazy" decoding="async" />
         </figure>
       </div>
 

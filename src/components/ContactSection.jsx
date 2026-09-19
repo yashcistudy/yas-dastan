@@ -25,7 +25,7 @@ export default function ContactSection() {
               key={action.label}
               className={`btn ${action.primary ? 'btn--solid' : 'btn--outline'}`}
               href={action.href}
-              {...(action.primary ? {} : { download: true })}
+              {...(action.primary ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
             >
               {action.label}
             </a>
