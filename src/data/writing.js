@@ -411,7 +411,7 @@ export const writingGroups = [
   {
     "id": "blogs",
     "label": "مقاله و بلاگ",
-    "note": "مقاله‌های بازی رومیزی گیک‌بازی، از قانون بازی تا تجربهٔ میز.",
+    "note": "مقاله‌های بازی رومیزی گیک‌بازی، از قانون بازی تا تجربه میز.",
     "items": [
       {
         "slug": "geekbazi-board-game-blog-writer-skill",
@@ -621,7 +621,7 @@ export const writingGroups = [
   },
   {
     "id": "rulebooks",
-    "label": "دفترچهٔ قانون",
+    "label": "دفترچه قانون",
     "note": "دفترچه‌های قانون فارسی که برای ناشر بازی نوشتم.",
     "items": [
       {
@@ -748,7 +748,7 @@ const EVIDENCE = {
     "docs": [
       {
         "slug": "player-types-reel-scenario",
-        "label": "سناریوی ریلز چهرهٔ واقعی پلیرها"
+        "label": "سناریوی ریلز چهره واقعی پلیرها"
       }
     ],
     "reels": [
@@ -794,7 +794,7 @@ const EVIDENCE = {
       },
       {
         "slug": "clash-of-clans-aparat-scenario",
-        "label": "سناریوی نسخهٔ بلند آپارات"
+        "label": "سناریوی نسخه بلند آپارات"
       }
     ],
     "reels": [
@@ -821,13 +821,13 @@ const EVIDENCE = {
       },
       {
         "slug": "dead-of-winter-blog",
-        "label": "مقالهٔ همین بازی"
+        "label": "مقاله همین بازی"
       }
     ],
     "reels": [
       {
         "url": "https://www.instagram.com/reel/DZh18vyISwB/",
-        "label": "دیدن نسخهٔ اینستاگرام"
+        "label": "دیدن نسخه اینستاگرام"
       }
     ]
   },
@@ -871,7 +871,7 @@ const EVIDENCE = {
       },
       {
         "slug": "roll-camera-blog",
-        "label": "مقالهٔ همین بازی"
+        "label": "مقاله همین بازی"
       }
     ],
     "reels": []
@@ -880,7 +880,7 @@ const EVIDENCE = {
     "docs": [
       {
         "slug": "gizmos-blog",
-        "label": "مقالهٔ همین بازی"
+        "label": "مقاله همین بازی"
       }
     ],
     "reels": []
@@ -889,7 +889,7 @@ const EVIDENCE = {
     "docs": [
       {
         "slug": "poh-blog",
-        "label": "مقالهٔ همین بازی"
+        "label": "مقاله همین بازی"
       }
     ],
     "reels": []
@@ -924,7 +924,7 @@ const EVIDENCE = {
       },
       {
         "slug": "geekbazi-gamification-scenario-booklet-template-rtl",
-        "label": "دفترچهٔ شناسنامه و دسته‌بندی سناریوها"
+        "label": "دفترچه شناسنامه و دسته‌بندی سناریوها"
       },
       {
         "slug": "gamification-texts",
@@ -932,7 +932,7 @@ const EVIDENCE = {
       },
       {
         "slug": "kadec-hr-scenario-overview-rtl-fixed",
-        "label": "نمونهٔ گزارش منابع انسانی یک رویداد"
+        "label": "نمونه گزارش منابع انسانی یک رویداد"
       }
     ],
     "reels": []
