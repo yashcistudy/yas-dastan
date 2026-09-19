@@ -4,7 +4,7 @@ import ChainReaction from './ChainReaction.jsx'
 import T from '../../utils/Bidi.jsx'
 
 const TABS = [
-  { id: 'homepage', label: 'طراحی صفحهٔ اول' },
+  { id: 'homepage', label: 'طراحی صفحه اول' },
   { id: 'gamification', label: 'مستند سیستم گیمیفیکیشن' },
   { id: 'video', label: 'تیزر' }
 ]
@@ -16,7 +16,7 @@ export default function CatalogWorld({ project }) {
   return (
     <div className="world-body">
       <p className="playhint playhint--inline">سه برچسب اینجاست؛ هرکدوم رو بزنید یه تکه از کار رو می‌بینید.</p>
-      <div className="tabs is-playable" role="tablist" aria-label="بخش‌های پروژهٔ مهرایان">
+      <div className="tabs is-playable" role="tablist" aria-label="بخش‌های پروژه مهرایان">
         {TABS.map((t) => (
           <button
             key={t.id}

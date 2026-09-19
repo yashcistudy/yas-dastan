@@ -30,7 +30,7 @@ export default function HeroDesk() {
             <a className="btn btn--solid" href={hero.ctaPrimary.href}>
               {hero.ctaPrimary.label}
             </a>
-            <a className="btn btn--outline" href={hero.ctaSecondary.href} download>
+            <a className="btn btn--outline" href={hero.ctaSecondary.href} target="_blank" rel="noopener noreferrer">
               {hero.ctaSecondary.label}
             </a>
           </div>

@@ -24,7 +24,7 @@ export default function GeekBaziWorld({ project }) {
   return (
     <div className="world-body">
       <p className="playhint playhint--inline">هفت برچسب اینجاست؛ هرکدوم رو بزنید یه تکه از کار رو می‌بینید.</p>
-      <div className="tabs is-playable" role="tablist" aria-label="بخش‌های پروژهٔ گیک‌بازی">
+      <div className="tabs is-playable" role="tablist" aria-label="بخش‌های پروژه گیک‌بازی">
         {TABS.map((item) => (
           <button
             key={item.id}
@@ -119,7 +119,7 @@ export default function GeekBaziWorld({ project }) {
                 rel="noopener noreferrer"
               >
                 <span aria-hidden="true">۞</span>
-                دفترچهٔ قانون عشق عددی
+                دفترچه قانون عشق عددی
               </a>
             </p>
           )}
@@ -154,7 +154,7 @@ export default function GeekBaziWorld({ project }) {
           </ul>
           <div className="library__grid">
             {project.grid.map((src) => (
-              <img key={src} src={src} alt="نمایی از پست‌های صفحهٔ اینستاگرام گیک‌بازی" width="720" height="1506" loading="lazy" decoding="async" />
+              <img key={src} src={src} alt="نمایی از پست‌های صفحه اینستاگرام گیک‌بازی" width="720" height="1506" loading="lazy" decoding="async" />
             ))}
           </div>
           <p className="world-note">{project.gridNote}</p>
